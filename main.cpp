@@ -145,10 +145,6 @@ void app1()
 int getPressedNumber()
 {
     vector<int> res = getPressedNumber2();
-    for (int i = 0; i < res.size(); i++)
-    {   
-        cout << res[i] << ", ";
-    }
     cout << endl;
     int x = res.size();
     int result = 0;
@@ -157,6 +153,7 @@ int getPressedNumber()
         result += res[i] * pow(10, i);
     }
 
+    cout << "the number you entered was: " << result << endl;
     return result;
 }
 
