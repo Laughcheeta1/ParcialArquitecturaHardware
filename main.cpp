@@ -130,6 +130,8 @@ void app1()
     if (interRaiz < 0)
         imaginary = true;
 
+    interRaiz = abs(interRaiz);
+    
     if (!imaginary)
     {
         cout << "El resultado es: " << (-b + sqrt(interRaiz)) / (2*a) << endl;
