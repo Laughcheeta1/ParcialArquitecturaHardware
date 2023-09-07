@@ -48,7 +48,7 @@ int main() {
 
 void app3()
 {
-    cout << "Format: #FFFFFF\n";
+    cout << "app 3 selected\n";
 
     PwmOut red(LED1);
     PwmOut green(LED2);
@@ -58,33 +58,33 @@ void app3()
     green.period(0.01);
     blue.period(0.01);
 
-    cout << "ingrese el numero de rojo (recuerde que el numero maximo que puede poner es 255):\n";
-    int number1 = getPressedNumber();
-    while (number1 > 255 || number1 < 0)
+    cout << "ingrese el numero de rojo (recuerde que tiene que inroducir entre 0 y 100, para que se refleje el porcentaje [0, 1]):\n";
+    float number1 = (float)getPressedNumber();
+    while (number1 > 100 || number1 < 0)
     {
-        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 255\n";
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 100\n";
         number1 = getPressedNumber();
     }
 
-    cout << "ingrese el numero de verde (recuerde que el numero maximo que puede poner es 255):\n";
-    int number2 = getPressedNumber();
-    while (number2 > 255 || number2 < 0)
+    cout << "ingrese el numero de verde (recuerde que tiene que inroducir entre 0 y 100, para que se refleje el porcentaje [0, 1]):\n";
+    float number2 = (float)getPressedNumber();
+    while (number2 > 100 || number2 < 0)
     {
-        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 255\n";
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 100\n";
         number2 = getPressedNumber();
     }
 
-    cout << "ingrese el numero de azul (recuerde que el numero maximo que puede poner es 255):\n";
-    int number3 = getPressedNumber();
-    while (number3 > 255 || number3 < 0)
+    cout << "ingrese el numero de azul (recuerde que tiene que inroducir entre 0 y 100, para que se refleje el porcentaje [0, 1]):\n";
+    float number3 = (float)getPressedNumber();
+    while (number3 > 100 || number3 < 0)
     {
-        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 255\n";
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 100\n";
         number3 = getPressedNumber();
     }
 
-    red.write((float)number1 / 1000);
-    green.write((float)number2 / 1000);
-    blue.write((float)number3 / 1000);
+    red.write(number1 / 100);
+    green.write(number2 / 100);
+    blue.write(number3 / 100);
 
     cout << "Listo! App 3 terminada\n";
 }
@@ -92,6 +92,8 @@ void app3()
 
 void app2()
 {
+    cout << "app 2 selected\n";
+
     cout << "Ingrese una nota del 0 al 10, y le mostrare la letra de la nota correspondiente\n";
     int i = getPressedNumber();
     while (i > 10 || i < 0)
@@ -118,6 +120,8 @@ void app2()
 
 void app1()
 {
+    cout << "app 1 selected\n";
+
     cout << "La forma del polinomio es: a*(x^2) + b*x + c" << endl;
     cout << "ingrese por favor el valor de la 'a'\n";
     int a = getPressedNumber();
