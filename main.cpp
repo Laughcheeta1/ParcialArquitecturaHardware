@@ -15,24 +15,21 @@ char keyMap[numRows][numCols] = {
 DigitalOut rowPins[numRows] = {DigitalOut(D2), DigitalOut(D3), DigitalOut(D4), DigitalOut(D5)};
 DigitalIn colPins[numCols] = {DigitalIn(D6), DigitalIn(D7), DigitalIn(D8), DigitalIn(D9)};
 
-//BusIn Row(D2, D3, D4, D5);
-//BusOut Col(D6, D7, D8, D9);
 
 vector<int> getPressedNumber2();
 int getPressedNumber();
 void app1();
 void app2();
 void app3();
-float getNumber(int number);
 
 using namespace std;
 
 int main() {
     while (true)
     {
-        printf("Select the app you want to use right:\n(Enter '1' or '2' or '3'\n");
+        cout << "Select the app you want to use right:\n(Enter '1' or '2' or '3'\n";
         int c = getPressedNumber();
-        while (c < 1 && c > 3)
+        while (c < 1 || c > 3)
         {
             c = getPressedNumber();
             cout << "Enter a valid app to use\n";
@@ -61,30 +58,35 @@ void app3()
     green.period(0.01);
     blue.period(0.01);
 
-    cout << "ingrese el numero de rojo\n";
+    cout << "ingrese el numero de rojo (recuerde que el numero maximo que puede poner es 255):\n";
     int number1 = getPressedNumber();
-    cout << "ingrese el numero de verde\n";
+    while (number1 > 255 || number1 < 0)
+    {
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 255\n";
+        number1 = getPressedNumber();
+    }
+
+    cout << "ingrese el numero de verde (recuerde que el numero maximo que puede poner es 255):\n";
     int number2 = getPressedNumber();
-    cout << "ingrese el numero de azul\n";
+    while (number2 > 255 || number2 < 0)
+    {
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 255\n";
+        number2 = getPressedNumber();
+    }
+
+    cout << "ingrese el numero de azul (recuerde que el numero maximo que puede poner es 255):\n";
     int number3 = getPressedNumber();
+    while (number3 > 255 || number3 < 0)
+    {
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 255\n";
+        number3 = getPressedNumber();
+    }
 
-    red.write(getNumber(number1));
-    green.write(getNumber(number2));
-    blue.write(getNumber(number3));
-}
+    red.write((float)number1 / 1000);
+    green.write((float)number2 / 1000);
+    blue.write((float)number3 / 1000);
 
-float getNumber(int number)
-{
-    float result = 0;
-
-    int firstNumber = number / 10;
-    int secondNumber = number * 10;
-
-    result += 16 * firstNumber;
-    result += secondNumber;
-    
-
-    return result / 1000;
+    cout << "Listo! App 3 terminada\n";
 }
 
 
@@ -92,6 +94,11 @@ void app2()
 {
     cout << "Ingrese una nota del 0 al 10, y le mostrare la letra de la nota correspondiente\n";
     int i = getPressedNumber();
+    while (i > 10 || i < 0)
+    {
+        cout << "ingreso un numero no valido, por favor vuevla a entrar un numero entre el 1 y el 10\n";
+        i = getPressedNumber();
+    }
 
     if (i <= 3 && i >= 0)
         printf("A\n");
@@ -105,10 +112,8 @@ void app2()
         printf("E\n");
     else if (i <= 10 && i >= 9)
         printf("F\n");
-    else
-        printf("No ha entrado un numero valido\n");
 
-    cout << "listo, app terminada\n";
+    cout << "Listo! App 2 terminada\n";
 }
 
 void app1()
@@ -132,28 +137,41 @@ void app1()
 
     interRaiz = abs(interRaiz);
     
-    if (!imaginary)
-    {
-        cout << "El resultado es: " << (-b + sqrt(interRaiz)) / (2*a) << endl;
-        cout << "O el otro resultado es: " << (-b - sqrt(interRaiz)) / (2*a) << endl;
-    }
-    else
+    if (imaginary)
     {
         cout << "El resultado es: (" << -b << " + " << sqrt(interRaiz) << "i) / " << 2*a <<  endl;
         cout << "El resultado es: (" << -b << " - " << sqrt(interRaiz) << "i) / " << 2*a <<  endl;
     }
+    else
+    {
+        cout << "El resultado es: " << (-b + sqrt(interRaiz)) / (2*a) << endl;
+        cout << "O el otro resultado es: " << (-b - sqrt(interRaiz)) / (2*a) << endl;
+    }
+
+    cout << "Listo! App 1 terminada\n";
 }
 
 int getPressedNumber()
 {
     vector<int> res = getPressedNumber2();
-    cout << endl;
     int x = res.size();
+    bool flag = false;
+
+    if (res[0] == -1)
+    {
+        flag = true;
+        res.erase(res.begin());
+        x--;
+    }
+
     int result = 0;
     for (int i = 0; i < x; i++)
     {
-        result += res[i] * pow(10, i);
+        result += res[i] * pow(10, x - i - 1);
     }
+
+    if (flag)
+        result *= -1;
 
     cout << "the number you entered was: " << result << endl;
     return result;
@@ -161,8 +179,9 @@ int getPressedNumber()
 
 vector<int> getPressedNumber2()
 {
-    printf("Recuerde que para terminar de escribir el numbero tiene que presionar la tecla '*'\n");
+    printf("Recuerde que para terminar de escribir el numero tiene que presionar la tecla '*'\nSi desea usar un numero negativo, presione '#' para introducir un '-'\n(cualquier '-' despues de la primera posicion sera ignorado)");
     vector <int> result;
+    bool flag = true;
     while (true){
         for (int i = 0; i < numRows; i++) {
             rowPins[i] = 0;
@@ -175,9 +194,25 @@ vector<int> getPressedNumber2()
                         ThisThread::sleep_for(500ms);
                         return result;
                     }
-
-                    result.push_back(keyMap[i][j] - '0');
-                    printf("pressed %c\n", keyMap[i][j]);
+                    else if (keyMap[i][j] == '#')
+                    {
+                        if (flag && result.size() == 0)
+                        {
+                            result.push_back(-1);
+                            cout << "pressed '-'\n";
+                            flag = false;
+                        }
+                        else
+                        {
+                            cout << "'-' ignored\n";
+                        }
+                    }
+                    else
+                    {
+                        result.push_back(keyMap[i][j] - '0');
+                        printf("pressed %c\n", keyMap[i][j]);
+                    }
+                    
 
                     ThisThread::sleep_for(500ms);  // Evita lecturas múltiples mientras la tecla está presionada
                 }
@@ -185,7 +220,5 @@ vector<int> getPressedNumber2()
 
             rowPins[i] = 1;
         }
-
-        
     }
 }
