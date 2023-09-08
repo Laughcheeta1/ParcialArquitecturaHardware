@@ -37,7 +37,7 @@ int getPressedNumber();
 void app1();
 void app2();
 void app3();
-float getNumber(int number);
+
 ```
 Esta parte del código se declaran todas las funciones que se van a utilizar más adelante en el código.
 
@@ -46,9 +46,9 @@ Esta parte del código se declaran todas las funciones que se van a utilizar má
 int main() {
     while (true)
     {
-        printf("Select the app you want to use right:\n(Enter '1' or '2' or '3'\n");
+        cout << "Select the app you want to use right:\n(Enter '1' or '2' or '3'\n";
         int c = getPressedNumber();
-        while (c < 1 && c > 3)
+        while (c < 1 || c > 3)
         {
             c = getPressedNumber();
             cout << "Enter a valid app to use\n";
@@ -64,7 +64,6 @@ int main() {
             app3();
     }
 }
-
 ```
 La función main() es el punto de entrada del programa. El programa entra en un bucle infinito donde el usuario puede seleccionar una de las tres aplicaciones disponibles ingresando un número del 1 al 3. El número se lee utilizando la función getPressedNumber() que se explicará posteriormente.
 
@@ -73,7 +72,7 @@ La función main() es el punto de entrada del programa. El programa entra en un 
 ```
 void app3()
 {
-    cout << "Format: #FFFFFF\n";
+    cout << "app 3 selected\n";
 
     PwmOut red(LED1);
     PwmOut green(LED2);
@@ -83,31 +82,55 @@ void app3()
     green.period(0.01);
     blue.period(0.01);
 
-    cout << "ingrese el numero de rojo\n";
-    int number1 = getPressedNumber();
-    cout << "ingrese el numero de verde\n";
-    int number2 = getPressedNumber();
-    cout << "ingrese el numero de azul\n";
-    int number3 = getPressedNumber();
+    cout << "ingrese el numero de rojo (recuerde que tiene que introducir un numero entre 0 y 255):\n";
+    float number1 = (float)getPressedNumber();
+    while (number1 > 255 || number1 < 0)
+    {
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 255\n";
+        number1 = getPressedNumber();
+    }
 
-    red.write(getNumber(number1));
-    green.write(getNumber(number2));
-    blue.write(getNumber(number3));
-}
-    
+    cout << "ingrese el numero de verde (recuerde que tiene que introducir un numero entre 0 y 255):\n";
+    float number2 = (float)getPressedNumber();
+    while (number2 > 255 || number2 < 0)
+    {
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del verde, desde 0 hasta 255\n";
+        number2 = getPressedNumber();
+    }
+
+    cout << "ingrese el numero de azul (recuerde que tiene que inroducir un numero entre 0 y 255):\n";
+    float number3 = (float)getPressedNumber();
+    while (number3 > 255 || number3 < 0)
+    {
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del azul, desde 0 hasta 255\n";
+        number3 = getPressedNumber();
+    }
+
+    red.write(number1 / 255);
+    green.write(number2 / 255);
+    blue.write(number3 / 255);
+
+    cout << "Listo! App 3 terminada\n";
 }
 ```
 La función app3() incialmente declara los LED que se van a utilizar (red,green,blue) y también declara el periodo de prendido y apagado de las luces LED (0.01).
 
-La función de este método es pedir al usuario los valores RGB en formato decimal, tomando primero los valores del color rojo, después los valores del color verde y por último los valores del color azul; esto con el objetivo de mostrar el color resultante en la bombilla LED.
+La función de este método es pedir al usuario los valores RGB en formato decimal, tomando primero los valores del color rojo, después los valores del color verde y por último los valores del color azul(Todods los valores están entre 0 y 255); por último el método convierte estos valores ingresados al porcentaje con respecto a 255, esto con el objetivo de mostrar el color resultante en la bombilla LED. El métod siempre se asegura de que los valores ingresados por el usuario sean válidos, de lo contrario el método volverá a pedir los valores de los colores hasta que se ingrese un número válido.
 
 ### app2()
 
 ```
 void app2()
 {
+    cout << "app 2 selected\n";
+
     cout << "Ingrese una nota del 0 al 10, y le mostrare la letra de la nota correspondiente\n";
     int i = getPressedNumber();
+    while (i > 10 || i < 0)
+    {
+        cout << "ingreso un numero no valido, por favor vuevla a entrar un numero entre el 1 y el 10\n";
+        i = getPressedNumber();
+    }
 
     if (i <= 3 && i >= 0)
         printf("A\n");
@@ -121,19 +144,20 @@ void app2()
         printf("E\n");
     else if (i <= 10 && i >= 9)
         printf("F\n");
-    else
-        printf("No ha entrado un numero valido\n");
 
-    cout << "listo, app terminada\n";
+    cout << "Listo! App 2 terminada\n";
+}
 }
 
 ```
-El método de app2() le pide un número al usuario entre el 1 y el 10, una vez ingresado el número el método le retorna al usuario una letra (desde la A hasta la F) según el numero que haya ingresado.
+El método de app2() le pide un número al usuario entre el 1 y el 10 (el método siempre revisa si el numero ingresado está entre 1 y 10, de lo contrario el metodo pide nuevamente el número hasta que se ingrese un número válido). Una vez ingresado el número el método le retorna al usuario una letra (desde la A hasta la F) según el numero que haya ingresado.
 
 ### app1()
 ```
 void app1()
 {
+    cout << "app 1 selected\n";
+
     cout << "La forma del polinomio es: a*(x^2) + b*x + c" << endl;
     cout << "ingrese por favor el valor de la 'a'\n";
     int a = getPressedNumber();
@@ -153,45 +177,79 @@ void app1()
 
     interRaiz = abs(interRaiz);
     
-    if (!imaginary)
-    {
-        cout << "El resultado es: " << (-b + sqrt(interRaiz)) / (2*a) << endl;
-        cout << "O el otro resultado es: " << (-b - sqrt(interRaiz)) / (2*a) << endl;
-    }
-    else
+    if (imaginary)
     {
         cout << "El resultado es: (" << -b << " + " << sqrt(interRaiz) << "i) / " << 2*a <<  endl;
         cout << "El resultado es: (" << -b << " - " << sqrt(interRaiz) << "i) / " << 2*a <<  endl;
     }
+    else
+    {
+        cout << "El resultado es: " << (-b + sqrt(interRaiz)) / (2*a) << endl;
+        cout << "O el otro resultado es: " << (-b - sqrt(interRaiz)) / (2*a) << endl;
+    }
+
+    cout << "Listo! App 1 terminada\n";
 }
 ```
-La función app1() permite al usuario ingresar coeficientes de un polinomio cuadrático y calcula sus raíces, teniendo en cuenta las raíces imaginarias.
+La función app1() permite al usuario ingresar coeficientes de un polinomio cuadrático y calcula sus raíces, teniendo en cuenta las raíces imaginarias. Se dejan indicadas las respustas que tengan números imaginarios.
+
+El método llama a la función getPressedNumber() para obtener el valor de a, b y c ingresado por el usuario.
+Después declara una variable booleana imaginary e inicialmente se establece en false.
+
+Se calcula la parte interior de la raíz (interRaiz) de la ecuación cuadrática y se verifica si el discriminante (interRaiz) es negativo. Si lo es, se establece imaginary en true, lo que indica que las raíces serán números complejos. Si imaginary es true, se imprime la solución en formato de número complejo. Muestra las dos raíces en la forma (parte real + parte imaginaria i) / (2*a) y (parte real - parte imaginaria i) / (2*a).
+
+Si imaginary es false, se imprime la solución en formato de número real. Muestra las dos raíces en formato numérico normal.
 
 ### getPressedNumber()
 ```
 int getPressedNumber()
 {
     vector<int> res = getPressedNumber2();
-    cout << endl;
     int x = res.size();
+    bool flag = false;
+
+    if (res[0] == -1)
+    {
+        flag = true;
+        res.erase(res.begin());
+        x--;
+    }
+
     int result = 0;
     for (int i = 0; i < x; i++)
     {
-        result += res[i] * pow(10, i);
+        result += res[i] * pow(10, x - i - 1);
     }
+
+    if (flag)
+        result *= -1;
 
     cout << "the number you entered was: " << result << endl;
     return result;
 }
 ```
-Este método tiene como función llamar al método getPressedNumber2() el cual le devuele un vector con dígitos para comvertir este vector a un número entero.
+Este método tiene como función llamar al método getPressedNumber2() el cual le devuele un vector con dígitos para convertir este vector a un número entero. 
+
+Principalmente inicializa una variable booleana flag en false. Esta variable se utilizará para determinar si el número es negativo. Después verifica si el primer elemento del vector res es igual a -1. Si es así, esto indica que el usuario indicó un número negativo. El código dentro del primer if realiza las siguientes acciones:
+
+1. Establece flag en true para indicar que el número es negativo.
+2. Elimina el primer elemento del vector res ya que representa el signo negativo.
+3. Reduce x en 1 para reflejar la eliminación del signo negativo.
+
+
+El for itera a través de los elementos del vector "res" para construir el número entero final. Realiza lo siguiente:
+
+Multiplica cada elemento del vector res por la potencia de 10 correspondiente según su posición en el vector. Esto coloca los dígitos en su posición correcta en el número entero final y suma los resultados de estas multiplicaciones para construir el número final.
+
+Si el último flag es true, significa que el número debe ser negativo, por lo que se multiplica result por -1 para obtener el valor negativo.
 
 ### getPressedNumber2()
 ```
 vector<int> getPressedNumber2()
 {
-    printf("Recuerde que para terminar de escribir el numbero tiene que presionar la tecla '*'\n");
+    printf("Recuerde que para terminar de escribir el numero tiene que presionar la tecla '*'\nSi desea usar un numero negativo, presione '#' para introducir un '-'\n(cualquier '-' despues de la primera posicion sera ignorado)");
     vector <int> result;
+    bool flag = true;
     while (true){
         for (int i = 0; i < numRows; i++) {
             rowPins[i] = 0;
@@ -204,9 +262,25 @@ vector<int> getPressedNumber2()
                         ThisThread::sleep_for(500ms);
                         return result;
                     }
-
-                    result.push_back(keyMap[i][j] - '0');
-                    printf("pressed %c\n", keyMap[i][j]);
+                    else if (keyMap[i][j] == '#')
+                    {
+                        if (flag && result.size() == 0)
+                        {
+                            result.push_back(-1);
+                            cout << "pressed '-'\n";
+                            flag = false;
+                        }
+                        else
+                        {
+                            cout << "'-' ignored\n";
+                        }
+                    }
+                    else
+                    {
+                        result.push_back(keyMap[i][j] - '0');
+                        printf("pressed %c\n", keyMap[i][j]);
+                    }
+                    
 
                     ThisThread::sleep_for(500ms);  // Evita lecturas múltiples mientras la tecla está presionada
                 }
@@ -214,10 +288,18 @@ vector<int> getPressedNumber2()
 
             rowPins[i] = 1;
         }
-
-        
     }
 }
 ```
-El método getPressedNumber2() se encarga de leer los números ingresados por el usuario desde un teclado numérico 4x4 y convertirlos en una secuencia de dígitos(vector de dígitos) que posteriormente se convertirán en un número entero.
+El método getPressedNumber2() se encarga de leer los números ingresados por el usuario desde un teclado numérico 4x4 y convertirlos en una secuencia de dígitos(vector de dígitos) que posteriormente se convertirán en un número entero. El número puede ser positivo o negativo, y el ingreso se detiene cuando el usuario presiona la tecla '*'. 
+
+El método usa una variable booleana flag para controlar si se permite ingresar un número negativo. Posteriormente inicia un bucle infinito que continuará hasta que el usuario presione la tecla '*' para finalizar la entrada del número. Este itera a través de las filas del teclado numérico y desactiva una fila a la vez para permitir la lectura de las teclas en esa fila, luego itera a través de las columnas del teclado numérico y verifica si una tecla está siendo presionada en esa fila y columna específicas.
+Si la tecla presionada es '*', la función termina la entrada y devuelve el vector result hasta ese punto.
+
+Si la tecla presionada es '#', la función permite que el usuario indique un número negativo si es la primera tecla presionada y agrega -1 a result. Luego, ignora los '-' adicionales.
+Si la tecla presionada es un dígito del 0 al 9, la función convierte el carácter en un entero y lo agrega a result.
+
+El resultado final es un vector de enteros que representa el número ingresado por el usuario, incluyendo números negativos si es necesario.
+
+
 
