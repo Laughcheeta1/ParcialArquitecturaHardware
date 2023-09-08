@@ -27,15 +27,15 @@ using namespace std;
 int main() {
     while (true)
     {
-        cout << "Select the app you want to use right:\n(Enter '1' or '2' or '3'\n";
+        cout << "Seleccione la aplicacion que desea usar:\n(Ingrese '1' o '2' o '3')\n";
         int c = getPressedNumber();
         while (c < 1 || c > 3)
         {
             c = getPressedNumber();
-            cout << "Enter a valid app to use\n";
+            cout << "Entre una app valida\n";
         }
 
-        cout << "The selected app is the " << c << endl;
+        cout << "La app seleccionada es: " << c << endl;
 
         if (c == 1)
             app1();
@@ -48,7 +48,7 @@ int main() {
 
 void app3()
 {
-    cout << "app 3 selected\n";
+    cout << "app 3 seleccionada\n";
 
     PwmOut red(LED1);
     PwmOut green(LED2);
@@ -92,7 +92,7 @@ void app3()
 
 void app2()
 {
-    cout << "app 2 selected\n";
+    cout << "app 2 seleccionada\n";
 
     cout << "Ingrese una nota del 0 al 10, y le mostrare la letra de la nota correspondiente\n";
     int i = getPressedNumber();
@@ -120,7 +120,7 @@ void app2()
 
 void app1()
 {
-    cout << "app 1 selected\n";
+    cout << "app 1 seleccionada\n";
 
     cout << "La forma del polinomio es: a*(x^2) + b*x + c" << endl;
     cout << "ingrese por favor el valor de la 'a'\n";
@@ -177,7 +177,7 @@ int getPressedNumber()
     if (flag)
         result *= -1;
 
-    cout << "the number you entered was: " << result << endl;
+    cout << "El numero que has entrado es: " << result << endl;
     return result;
 }
 
@@ -203,18 +203,18 @@ vector<int> getPressedNumber2()
                         if (flag && result.size() == 0)
                         {
                             result.push_back(-1);
-                            cout << "pressed '-'\n";
+                            cout << "presionaste '-'\n";
                             flag = false;
                         }
                         else
                         {
-                            cout << "'-' ignored\n";
+                            cout << "'-' ignorado\n";
                         }
                     }
                     else
                     {
                         result.push_back(keyMap[i][j] - '0');
-                        printf("pressed %c\n", keyMap[i][j]);
+                        printf("presionaste %c\n", keyMap[i][j]);
                     }
                     
 
