@@ -106,16 +106,16 @@ void app3()
         number3 = getPressedNumber();
     }
 
-    red.write(1 - (number1 / 255));
-    green.write(1 - (number2 / 255));
-    blue.write(1 - (number3 / 255));
+    red.write(number1 / 255);
+    green.write(number2 / 255);
+    blue.write(number3 / 255);
 
     cout << "Listo! App 3 terminada\n";
 }
 ```
 La función app3() incialmente declara los LED que se van a utilizar (red,green,blue) y también declara el periodo de prendido y apagado de las luces LED (0.01).
 
-La función de este método es pedir al usuario los valores RGB en formato decimal, tomando primero los valores del color rojo, después los valores del color verde y por último los valores del color azul(Todods los valores están entre 0 y 255); por último el método convierte estos valores ingresados al porcentaje con respecto a 255, esto con el objetivo de mostrar el color resultante en la bombilla LED. El método siempre se asegura de que los valores ingresados por el usuario sean válidos, de lo contrario el método volverá a pedir los valores de los colores hasta que se ingrese un número válido.
+La función de este método es pedir al usuario los valores RGB en formato decimal, tomando primero los valores del color rojo, después los valores del color verde y por último los valores del color azul(Todods los valores están entre 0 y 255); por último el método convierte estos valores ingresados al porcentaje con respecto a 255, esto con el objetivo de mostrar el color resultante en la bombilla LED. El métod siempre se asegura de que los valores ingresados por el usuario sean válidos, de lo contrario el método volverá a pedir los valores de los colores hasta que se ingrese un número válido.
 
 ### app2()
 
@@ -150,7 +150,7 @@ void app2()
 }
 
 ```
-El método de app2() le pide un número al usuario entre el 1 y el 10 (el método siempre revisa si el numero ingresado está entre 1 y 10, de lo contrario el metodo pide nuevamente el número hasta que se ingrese un número válido). Una vez ingresado el número, el método le retorna al usuario una letra (desde la A hasta la F) según el número que haya ingresado.
+El método de app2() le pide un número al usuario entre el 1 y el 10 (el método siempre revisa si el numero ingresado está entre 1 y 10, de lo contrario el metodo pide nuevamente el número hasta que se ingrese un número válido). Una vez ingresado el número el método le retorna al usuario una letra (desde la A hasta la F) según el numero que haya ingresado.
 
 ### app1()
 ```
@@ -191,14 +191,12 @@ void app1()
     cout << "Listo! App 1 terminada\n";
 }
 ```
-La función app1() permite al usuario ingresar coeficientes de un polinomio cuadrático y calcula sus raíces, teniendo en cuenta las raíces imaginarias. Las respuestas que son con números complejos se dejan indicadas.
+La función app1() permite al usuario ingresar coeficientes de un polinomio cuadrático y calcula sus raíces, teniendo en cuenta las raíces imaginarias. Las respuestas que tengan números imaginarios se dejan indicadas.
 
 El método llama a la función getPressedNumber() para obtener el valor de a, b y c ingresado por el usuario.
-Después declara una variable booleana "imaginary" e inicialmente se establece como false.
+Después declara una variable booleana imaginary e inicialmente se establece en false.
 
-Se calcula la parte interior de la raíz (interRaiz) de la ecuación cuadrática y se verifica si el discriminante (interRaiz) es negativo. Si lo es, se establece imaginary en true, lo que indica que las raíces serán números complejos. Si imaginary es true, se imprime la solución en formato de número complejo. Muestra las dos raíces en la forma (parte real + parte imaginaria i) / (2*a) y (parte real - parte imaginaria i) / (2*a).
-
-Si imaginary es false, se imprime la solución en formato de número real. Muestra las dos raíces en formato numérico normal.
+Se calcula la parte interior de la raíz (interRaiz) de la ecuación cuadrática y se verifica si el discriminante (interRaiz) es negativo. Si lo es, se establece "imaginary" en true, lo que indica que las raíces serán números complejos. Si "imaginary" es true, se imprime la solución en formato de número complejo. Si "imaginary" es false, se imprime la solución en formato de número real. Muestra las dos raíces en formato numérico normal.
 
 ### getPressedNumber()
 ```
@@ -230,12 +228,7 @@ int getPressedNumber()
 ```
 Este método tiene como función llamar al método getPressedNumber2() el cual le devuele un vector con dígitos para convertir este vector a un número entero. 
 
-Principalmente inicializa una variable booleana flag en false. Esta variable se utilizará para determinar si el número es negativo. Después verifica si el primer elemento del vector res es igual a -1. Si es así, esto indica que el usuario indicó un número negativo. El código dentro del primer if realiza las siguientes acciones:
-
-1. Establece flag en true para indicar que el número es negativo.
-2. Elimina el primer elemento del vector res ya que representa el signo negativo.
-3. Reduce x en 1 para reflejar la eliminación del signo negativo.
-
+Principalmente inicializa una variable booleana flag en false. Esta variable se utilizará para determinar si el número es negativo. Después verifica si el primer elemento del vector res es igual a -1. Si es así, esto indica que el usuario indicó un número negativo. El código dentro del primer if establece flag en true para indicar que el número es negativo después elimina el primer elemento del vector res ya que representa el signo negativo y por último reduce x en 1 para reflejar la eliminación del signo negativo.
 
 El for itera a través de los elementos del vector "res" para construir el número entero final. Realiza lo siguiente:
 
@@ -296,10 +289,11 @@ El método getPressedNumber2() se encarga de leer los números ingresados por el
 El método usa una variable booleana flag para controlar si se permite ingresar un número negativo. Posteriormente inicia un bucle infinito que continuará hasta que el usuario presione la tecla * para finalizar la entrada del número. Este itera a través de las filas del teclado numérico y desactiva una fila a la vez para permitir la lectura de las teclas en esa fila, luego itera a través de las columnas del teclado numérico y verifica si una tecla está siendo presionada en esa fila y columna específicas.
 Si la tecla presionada es *, la función termina la entrada y devuelve el vector result hasta ese punto.
 
-Si la tecla presionada es '#', la función permite que el usuario indique un número negativo si es la primera tecla presionada y agrega -1 a result. Luego, ignora los '-' adicionales.
-Si la tecla presionada es un dígito del 0 al 9, la función convierte el carácter en un entero y lo agrega a result.
+Si la tecla presionada es '#', la función permite que el usuario indique un número negativo si es la primera tecla presionada y agrega -1 a "result". Luego, ignora los '-' adicionales.
+Si la tecla presionada es un dígito del 0 al 9, la función convierte el carácter en un entero y lo agrega a "result".
 
 El resultado final es un vector de enteros que representa el número ingresado por el usuario.
+
 
 
 
