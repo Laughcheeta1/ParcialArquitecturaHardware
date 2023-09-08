@@ -29,7 +29,7 @@ int main() {
     {
         cout << "Seleccione la aplicacion que desea usar:\n(Ingrese '1' o '2' o '3')\n";
         int c = getPressedNumber();
-        while (c < 1 || c > 3)
+        while (c < 1 || c > 3) // Check if a number is valid
         {
             c = getPressedNumber();
             cout << "Entre una app valida\n";
@@ -39,9 +39,9 @@ int main() {
 
         if (c == 1)
             app1();
-        if (c == 2)
+        else if (c == 2)
             app2();
-        if (c == 3)
+        else 
             app3();
     }
 }
@@ -50,16 +50,18 @@ void app3()
 {
     cout << "app 3 seleccionada\n";
 
+    // Declare the LEDS
     PwmOut red(LED1);
     PwmOut green(LED2);
     PwmOut blue(LED3);
 
-    red.period(0.01);
-    green.period(0.01);
-    blue.period(0.01);
+    // Set the periods for the leds
+    red.period(0.1);
+    green.period(0.1);
+    blue.period(0.1);
 
     cout << "ingrese el numero de rojo (recuerde que tiene que introducir un numero entre 0 y 255):\n";
-    float number1 = (float)getPressedNumber();
+    float number1 = (float)getPressedNumber(); // Red number
     while (number1 > 255 || number1 < 0)
     {
         cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 255\n";
@@ -67,7 +69,7 @@ void app3()
     }
 
     cout << "ingrese el numero de verde (recuerde que tiene que introducir un numero entre 0 y 255):\n";
-    float number2 = (float)getPressedNumber();
+    float number2 = (float)getPressedNumber(); // Green number
     while (number2 > 255 || number2 < 0)
     {
         cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del verde, desde 0 hasta 255\n";
@@ -75,13 +77,14 @@ void app3()
     }
 
     cout << "ingrese el numero de azul (recuerde que tiene que inroducir un numero entre 0 y 255):\n";
-    float number3 = (float)getPressedNumber();
+    float number3 = (float)getPressedNumber(); // Blue number
     while (number3 > 255 || number3 < 0)
     {
         cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del azul, desde 0 hasta 255\n";
         number3 = getPressedNumber();
     }
 
+    // Set the time it spends turn on, '1 -' because the cards we are using require the percentage to be inverted
     red.write(1 - (number1 / 255));
     green.write(1 - (number2 / 255));
     blue.write(1 - (number3 / 255));
@@ -134,14 +137,14 @@ void app1()
 
     bool imaginary = false;
 
-    int interRaiz = b*b - 4*a*c;
+    int interRaiz = b*b - 4*a*c; // Value inside the square root
 
     if (interRaiz < 0)
         imaginary = true;
 
     interRaiz = abs(interRaiz);
     
-    if (imaginary)
+    if (imaginary) // Leave the answer indicated, but not operate it since it would be inmpossible
     {
         cout << "El resultado es: (" << -b << " + " << sqrt(interRaiz) << "i) / " << 2*a <<  endl;
         cout << "El resultado es: (" << -b << " - " << sqrt(interRaiz) << "i) / " << 2*a <<  endl;
@@ -159,11 +162,11 @@ int getPressedNumber()
 {
     vector<int> res = getPressedNumber2();
     int x = res.size();
-    bool flag = false;
+    bool negative = false;
 
-    if (res[0] == -1)
+    if (res[0] == -1) // If the number is negative
     {
-        flag = true;
+        negative = true;
         res.erase(res.begin());
         x--;
     }
@@ -171,11 +174,11 @@ int getPressedNumber()
     int result = 0;
     for (int i = 0; i < x; i++)
     {
-        result += res[i] * pow(10, x - i - 1);
+        result += res[i] * pow(10, x - i - 1); // 7456 = 7000 + 400 + 50 + 6
     }
 
-    if (flag)
-        result *= -1;
+    if (negative)
+        result *= -1; // Set the number to negative
 
     cout << "El numero que has entrado es: " << result << endl;
     return result;
@@ -192,13 +195,13 @@ vector<int> getPressedNumber2()
             
             for (int j = 0; j < numCols; j++) {
                 if (!colPins[j]) {
-                    if (keyMap[i][j] == '*')
+                    if (keyMap[i][j] == '*') // Finish the number
                     {
                         rowPins[i] = 1;
                         ThisThread::sleep_for(500ms);
                         return result;
                     }
-                    else if (keyMap[i][j] == '#')
+                    else if (keyMap[i][j] == '#') // # indicates a negative
                     {
                         if (flag && result.size() == 0)
                         {

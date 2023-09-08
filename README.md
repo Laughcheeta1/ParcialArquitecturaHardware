@@ -9,7 +9,7 @@
     #include <iostream>
     #include <vector>
 ```
-En las lineas previas al main se importan las librerias necesarias para que el codigo funcione correctamente. También incluimos la librería de `vector` para el funcionamiento del método getPressedNumber().
+En las lineas previas al main se importan las librerias necesarias para que el codigo funcione correctamente. También incluimos la librería de `vector` para el funcionamiento del método `getPressedNumber()`.
 
 ### Declaración de la matriz que se va a utilizar. 
 ```
@@ -65,7 +65,7 @@ int main() {
     }
 }
 ```
-La función `main()` es el punto de entrada del programa. El programa entra en un bucle infinito donde el usuario puede seleccionar una de las tres aplicaciones disponibles ingresando un número del 1 al 3, si el numero no esta fuera del rango, entonces el programa vuelve a pedirte que ingreses un numero.
+La función `main()` es el punto de entrada del programa. El programa entra en un bucle infinito donde el usuario puede seleccionar una de las tres aplicaciones disponibles ingresando un número del 1 al 3, si el numero está fuera del rango, entonces el programa vuelve a pedirte que ingreses un numero.
 Los números durante todo el programa siempre se leen mediante el uso del metodo `getPressedNumber()`.
 
 ### app3()
@@ -78,9 +78,9 @@ void app3()
     PwmOut green(LED2);
     PwmOut blue(LED3);
 
-    red.period(0.01);
-    green.period(0.01);
-    blue.period(0.01);
+    red.period(0.1);
+    green.period(0.1);
+    blue.period(0.1);
 
     cout << "ingrese el numero de rojo (recuerde que tiene que introducir un numero entre 0 y 255):\n";
     float number1 = (float)getPressedNumber();
@@ -193,7 +193,7 @@ La función `app1()` permite al usuario ingresar coeficientes de un polinomio cu
 El pide al usuario el valor de `a`, `b` y `c`, los cuales son las partes que componen un polinomio cuadrático (a*(x^2) + b*x + c).
 Después declara una variable booleana `imaginary`, la cual guarda si la respuesta va a ser compleja (contener un imaginario) o no, e inicialmente se establece como falsa.
 
-Se calcula el determinante de (la parte interior de la raíz, `interRaiz`) de la formula de la solucion de una ecuación cuadrática y se verifica si este (`interRaiz`) es negativo. Si lo es, se establece `imaginary` en true, lo que indica que las raíces serán números complejos. Si `imaginary` es true, se imprime la solución en formato de número complejo. Si `imaginary` es false, se imprime la solución calculada. Para las soluciones se muestran ambas, cuando la formula es b + raiz y cuando es b - raiz.
+Se calcula el determinante (la parte interior de la raíz, `interRaiz`) de la formula de la solucion de una ecuación cuadrática y se verifica si este (`interRaiz`) es negativo. Si lo es, se establece `imaginary` en true, lo que indica que las raíces serán números complejos. Si `imaginary` es true, se imprime la solución en formato de número complejo. Si `imaginary` es false, se imprime la solución calculada. Para las soluciones se muestran ambas, cuando la formula es b + raiz y cuando es b - raiz.
 
 ### getPressedNumber()
 ```
@@ -225,12 +225,12 @@ int getPressedNumber()
 ```
 Este método tiene como función llamar al método `getPressedNumber2()` el cual le devuele un vector con dígitos para convertir este vector a un número entero. 
 
-Inicialmente inicializa una variable booleana `negative` en false. Esta variable se utilizará para determinar si el número es negativo. Después en el primer `if` verifica si el primer elemento del vector `res` es igual a -1, si es así, esto indica que el usuario indicó un número negativom, con ello se establece `negative` en true para indicar que el número es negativo después elimina el primer elemento del vector `res` ya que este representa el signo negativo y por último reduce x en 1 para reflejar la eliminación del signo negativo.
+Inicialmente inicializa una variable booleana `negative` en false. Esta variable se utilizará para determinar si el número es negativo. Después en el primer `if` verifica si el primer elemento del vector `res` es igual a -1, si es así, esto indica que el usuario ingreso un número negativo, con ello se establece `negative` en true para indicar que el número es negativo, después elimina el primer elemento del vector `res` ya que este representa el signo negativo y por último reduce `x` (la variable que lleva el tamaño del vector) en 1 para reflejar la eliminación del signo negativo.
 
 El for itera a través de los elementos del vector `res` para construir el número entero final basandose en este principio `4753 = 4000 + 700 + 50 + 3`, de esta manera vamos a multiplicar cada elemento del vector por su correspondiente potencia de 10, para que ese numero sume solamente a la posicion que le corresponde, es decir, si tenemos el vector [8, 7, 6], sabemos que el 8 pertenece a las centenas, el 7 a las decenas y el 6 a las unidades, con ello hariamos una suma de estos digitos, pero multiplicado por la potencia de 10 que lo hace estar en la posicion indicada, asi la suma quedaria `8 * (10^2) + 7 * (10 ^ 1) + 6 * (10 ^ 0)`, este es el principio que estamos haciendo dentro del for, lo unico es que es  `10 ^ (x - i - 1)` ese exponente viene del hecho que como la i va desde 0 hasta (x - 1), y necesitamos es multiplicar el por potencias de 10, pero decrecientes, entonces esto lo podemos solucionar por medio de `(x - i - 1)`.
 
-El ultimo if chequea que si el numero debe de ser negativo, entonces vamos a multiplicar el resultado de la suma por -1 para convertir el numero en negativo.
-Ya de ahi solo se retorna el numero.
+El ultimo if chequea que si el numero debe de ser negativo, si es asi, entonces vamos a multiplicar el resultado de la suma por -1 para convertir el numero en negativo.
+Ya de ahi solo se retorna el numero en forma int.
 
 ### getPressedNumber2()
 ```
