@@ -106,16 +106,16 @@ void app3()
         number3 = getPressedNumber();
     }
 
-    red.write(number1 / 255);
-    green.write(number2 / 255);
-    blue.write(number3 / 255);
+    red.write(1 - (number1 / 255));
+    green.write(1 - (number2 / 255));
+    blue.write(1 - (number3 / 255));
 
     cout << "Listo! App 3 terminada\n";
 }
 ```
 La función app3() incialmente declara los LED que se van a utilizar (red,green,blue) y también declara el periodo de prendido y apagado de las luces LED (0.01).
 
-La función de este método es pedir al usuario los valores RGB en formato decimal, tomando primero los valores del color rojo, después los valores del color verde y por último los valores del color azul(Todods los valores están entre 0 y 255); por último el método convierte estos valores ingresados al porcentaje con respecto a 255, esto con el objetivo de mostrar el color resultante en la bombilla LED. El métod siempre se asegura de que los valores ingresados por el usuario sean válidos, de lo contrario el método volverá a pedir los valores de los colores hasta que se ingrese un número válido.
+La función de este método es pedir al usuario los valores RGB en formato decimal, tomando primero los valores del color rojo, después los valores del color verde y por último los valores del color azul(Todods los valores están entre 0 y 255); por último el método convierte estos valores ingresados al porcentaje con respecto a 255, esto con el objetivo de mostrar el color resultante en la bombilla LED. El método siempre se asegura de que los valores ingresados por el usuario sean válidos, de lo contrario el método volverá a pedir los valores de los colores hasta que se ingrese un número válido.
 
 ### app2()
 
@@ -150,7 +150,7 @@ void app2()
 }
 
 ```
-El método de app2() le pide un número al usuario entre el 1 y el 10 (el método siempre revisa si el numero ingresado está entre 1 y 10, de lo contrario el metodo pide nuevamente el número hasta que se ingrese un número válido). Una vez ingresado el número el método le retorna al usuario una letra (desde la A hasta la F) según el numero que haya ingresado.
+El método de app2() le pide un número al usuario entre el 1 y el 10 (el método siempre revisa si el numero ingresado está entre 1 y 10, de lo contrario el metodo pide nuevamente el número hasta que se ingrese un número válido). Una vez ingresado el número, el método le retorna al usuario una letra (desde la A hasta la F) según el número que haya ingresado.
 
 ### app1()
 ```
@@ -191,10 +191,10 @@ void app1()
     cout << "Listo! App 1 terminada\n";
 }
 ```
-La función app1() permite al usuario ingresar coeficientes de un polinomio cuadrático y calcula sus raíces, teniendo en cuenta las raíces imaginarias. Se dejan indicadas las respustas que tengan números imaginarios.
+La función app1() permite al usuario ingresar coeficientes de un polinomio cuadrático y calcula sus raíces, teniendo en cuenta las raíces imaginarias. Las respuestas que son con números complejos se dejan indicadas.
 
 El método llama a la función getPressedNumber() para obtener el valor de a, b y c ingresado por el usuario.
-Después declara una variable booleana imaginary e inicialmente se establece en false.
+Después declara una variable booleana "imaginary" e inicialmente se establece como false.
 
 Se calcula la parte interior de la raíz (interRaiz) de la ecuación cuadrática y se verifica si el discriminante (interRaiz) es negativo. Si lo es, se establece imaginary en true, lo que indica que las raíces serán números complejos. Si imaginary es true, se imprime la solución en formato de número complejo. Muestra las dos raíces en la forma (parte real + parte imaginaria i) / (2*a) y (parte real - parte imaginaria i) / (2*a).
 
@@ -299,7 +299,7 @@ Si la tecla presionada es *, la función termina la entrada y devuelve el vector
 Si la tecla presionada es '#', la función permite que el usuario indique un número negativo si es la primera tecla presionada y agrega -1 a result. Luego, ignora los '-' adicionales.
 Si la tecla presionada es un dígito del 0 al 9, la función convierte el carácter en un entero y lo agrega a result.
 
-El resultado final es un vector de enteros que representa el número ingresado por el usuario, incluyendo números negativos si es necesario.
+El resultado final es un vector de enteros que representa el número ingresado por el usuario.
 
 
 
