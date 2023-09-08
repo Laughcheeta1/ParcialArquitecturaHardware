@@ -82,9 +82,9 @@ void app3()
         number3 = getPressedNumber();
     }
 
-    red.write(number1 / 255);
-    green.write(number2 / 255);
-    blue.write(number3 / 255);
+    red.write(1 - (number1 / 255));
+    green.write(1 - (number2 / 255));
+    blue.write(1 - (number3 / 255));
 
     cout << "Listo! App 3 terminada\n";
 }
