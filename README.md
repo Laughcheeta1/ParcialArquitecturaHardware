@@ -9,7 +9,7 @@
     #include <iostream>
     #include <vector>
 ```
-En las lineas previas al main se importan las librerias necesarias para que el codigo funcione correctamente. También incluimos la librería de <vector> para el funcionamiento del método getPressedNumber().
+En las lineas previas al main se importan las librerias necesarias para que el codigo funcione correctamente. También incluimos la librería de 'vector' para el funcionamiento del método getPressedNumber().
 
 ### Declaración de la matriz que se va a utilizar. 
 ```
@@ -26,9 +26,9 @@ char keyMap[numRows][numCols] = {
 DigitalOut rowPins[numRows] = {DigitalOut(D2), DigitalOut(D3), DigitalOut(D4), DigitalOut(D5)};
 DigitalIn colPins[numCols] = {DigitalIn(D6), DigitalIn(D7), DigitalIn(D8), DigitalIn(D9)};
 ```
-En esta parte del código se declaran dos constantes "numRows" y "numCols" para declarar el numero de filas y de columnas que tiene el teclado numérico utilizado.
-Después se crea una matriz la cual tiene como objetivo representar el diseño del teclado numérico 4x4, en donde cada elemento de la matriz es un botón del teclado utilizado.
-Finalmente se crean arreglos de objetos DigitalOut y DigitalIn llamados rowPins y colPins, respectivamente, para controlar las filas y columnas del teclado numérico. 
+En esta parte del código se declaran dos constantes 'numRows' y 'numCols' para declarar el numero de filas y de columnas que tiene el teclado numérico utilizado.
+Después se crea una matriz la cual representa el diseño del teclado numérico 4x4, en donde cada elemento de la matriz es un botón del teclado utilizado.
+Finalmente se crean arreglos de objetos 'DigitalOut' y 'DigitalIn' llamados 'rowPins' y 'colPins' respectivamente, para controlar las filas y columnas del teclado numérico. 
 
 ### Declaración de funciones que se van a utilizar
 ```
@@ -46,7 +46,7 @@ Esta parte del código se declaran todas las funciones que se van a utilizar má
 int main() {
     while (true)
     {
-        cout << "Select the app you want to use right:\n(Enter '1' or '2' or '3'\n";
+        cout << "Select the app you want to use right :\n(Enter '1' or '2' or '3'\n)";
         int c = getPressedNumber();
         while (c < 1 || c > 3)
         {
@@ -65,10 +65,10 @@ int main() {
     }
 }
 ```
-La función main() es el punto de entrada del programa. El programa entra en un bucle infinito donde el usuario puede seleccionar una de las tres aplicaciones disponibles ingresando un número del 1 al 3. El número se lee utilizando la función getPressedNumber() que se explicará posteriormente.
+La función 'main()' es el punto de entrada del programa. El programa entra en un bucle infinito donde el usuario puede seleccionar una de las tres aplicaciones disponibles ingresando un número del 1 al 3, si el numero no esta fuera del rango, entonces el programa vuelve a pedirte que ingreses un numero.
+Los números durante todo el programa siempre se leen mediante el uso del metodo 'getPressedNumber()'.
 
 ### app3()
-
 ```
 void app3()
 {
@@ -113,9 +113,8 @@ void app3()
     cout << "Listo! App 3 terminada\n";
 }
 ```
-La función app3() incialmente declara los LED que se van a utilizar (red,green,blue) y también declara el periodo de prendido y apagado de las luces LED (0.01).
-
-La función de este método es pedir al usuario los valores RGB en formato decimal, tomando primero los valores del color rojo, después los valores del color verde y por último los valores del color azul(Todods los valores están entre 0 y 255); por último el método convierte estos valores ingresados al porcentaje con respecto a 255, esto con el objetivo de mostrar el color resultante en la bombilla LED. El métod siempre se asegura de que los valores ingresados por el usuario sean válidos, de lo contrario el método volverá a pedir los valores de los colores hasta que se ingrese un número válido.
+La función 'app3()' incialmente declara los LED que se van a utilizar ('red', 'green', 'blue') y también declara el periodo de prendido y apagado de las luces LED (0.01).
+Este método pide al usuario los valores RGB en formato decimal, tomando primero los valores del color rojo, después los valores del color verde y por último los valores del color azul (Todos los valores están entre 0 inclusivo y 255 inclusivo); por último el método convierte estos valores ingresados al porcentaje con respecto a 255, y luego los invierte (por medio de 1 - *porcentaje esperado*, esto debido a como funcionan las tarjetas que estamos usando), esto con el objetivo de mostrar el color resultante en la bombilla LED. El método siempre se asegura de que los valores ingresados por el usuario sean válidos, de lo contrario el método volverá a pedir los valores de los colores hasta que se ingrese un número válido.
 
 ### app2()
 
@@ -147,10 +146,8 @@ void app2()
 
     cout << "Listo! App 2 terminada\n";
 }
-}
-
 ```
-El método de app2() le pide un número al usuario entre el 1 y el 10 (el método siempre revisa si el numero ingresado está entre 1 y 10, de lo contrario el metodo pide nuevamente el número hasta que se ingrese un número válido). Una vez ingresado el número el método le retorna al usuario una letra (desde la A hasta la F) según el numero que haya ingresado.
+El método de 'app2()' le pide un número al usuario entre el 1 y el 10 (el método siempre revisa si el numero ingresado está entre 1 y 10, de lo contrario el metodo pide nuevamente el número hasta que se ingrese un número válido). Una vez ingresado el número el método le muestra al usuario una letra mayúscula (desde la A hasta la F) según el numero que se haya ingresado.
 
 ### app1()
 ```
@@ -191,12 +188,12 @@ void app1()
     cout << "Listo! App 1 terminada\n";
 }
 ```
-La función app1() permite al usuario ingresar coeficientes de un polinomio cuadrático y calcula sus raíces, teniendo en cuenta las raíces imaginarias. Las respuestas que tengan números imaginarios se dejan indicadas.
+La función 'app1()' permite al usuario ingresar coeficientes de un polinomio cuadrático y calcula sus raíces. Las respuestas que tengan números imaginarios se dejan indicadas.
 
-El método llama a la función getPressedNumber() para obtener el valor de a, b y c ingresado por el usuario.
-Después declara una variable booleana imaginary e inicialmente se establece en false.
+El pide al usuario el valor de 'a', 'b' y 'c', los cuales son las partes que componen un polinomio cuadrático (a*(x^2) + b*x + c).
+Después declara una variable booleana 'imaginary', la cual guarda si la respuesta va a ser compleja (contener un imaginario) o no, e inicialmente se establece como falsa.
 
-Se calcula la parte interior de la raíz (interRaiz) de la ecuación cuadrática y se verifica si el discriminante (interRaiz) es negativo. Si lo es, se establece "imaginary" en true, lo que indica que las raíces serán números complejos. Si "imaginary" es true, se imprime la solución en formato de número complejo. Si "imaginary" es false, se imprime la solución en formato de número real. Muestra las dos raíces en formato numérico normal.
+Se calcula el determinante de (la parte interior de la raíz, 'interRaiz') de la formula de la solucion de una ecuación cuadrática y se verifica si este ('interRaiz') es negativo. Si lo es, se establece 'imaginary' en true, lo que indica que las raíces serán números complejos. Si 'imaginary' es true, se imprime la solución en formato de número complejo. Si 'imaginary' es false, se imprime la solución calculada. Para las soluciones se muestran ambas, cuando la formula es b + raiz y cuando es b - raiz.
 
 ### getPressedNumber()
 ```
@@ -204,11 +201,11 @@ int getPressedNumber()
 {
     vector<int> res = getPressedNumber2();
     int x = res.size();
-    bool flag = false;
+    bool negative = false;
 
     if (res[0] == -1)
     {
-        flag = true;
+        negative = true;
         res.erase(res.begin());
         x--;
     }
@@ -216,25 +213,24 @@ int getPressedNumber()
     int result = 0;
     for (int i = 0; i < x; i++)
     {
-        result += res[i] * pow(10, x - i - 1);
+        result += res[i] * pow(10, x - i - 1); // 7456 = 7000 + 400 + 50 + 6
     }
 
-    if (flag)
+    if (negative)
         result *= -1;
 
-    cout << "the number you entered was: " << result << endl;
+    cout << "El numero que has entrado es: " << result << endl;
     return result;
 }
 ```
-Este método tiene como función llamar al método getPressedNumber2() el cual le devuele un vector con dígitos para convertir este vector a un número entero. 
+Este método tiene como función llamar al método 'getPressedNumber2()' el cual le devuele un vector con dígitos para convertir este vector a un número entero. 
 
-Principalmente inicializa una variable booleana flag en false. Esta variable se utilizará para determinar si el número es negativo. Después verifica si el primer elemento del vector res es igual a -1. Si es así, esto indica que el usuario indicó un número negativo. El código dentro del primer if establece flag en true para indicar que el número es negativo después elimina el primer elemento del vector res ya que representa el signo negativo y por último reduce x en 1 para reflejar la eliminación del signo negativo.
+Inicialmente inicializa una variable booleana 'negative' en false. Esta variable se utilizará para determinar si el número es negativo. Después en el primer 'if' verifica si el primer elemento del vector 'res' es igual a -1, si es así, esto indica que el usuario indicó un número negativom, con ello se establece 'negative' en true para indicar que el número es negativo después elimina el primer elemento del vector 'res' ya que este representa el signo negativo y por último reduce x en 1 para reflejar la eliminación del signo negativo.
 
-El for itera a través de los elementos del vector "res" para construir el número entero final. Realiza lo siguiente:
+El for itera a través de los elementos del vector 'res' para construir el número entero final basandose en este principio '4753 = 4000 + 700 + 50 + 3', de esta manera vamos a multiplicar cada elemento del vector por su correspondiente potencia de 10, para que ese numero sume solamente a la posicion que le corresponde, es decir, si tenemos el vector [8, 7, 6], sabemos que el 8 pertenece a las centenas, el 7 a las decenas y el 6 a las unidades, con ello hariamos una suma de estos digitos, pero multiplicado por la potencia de 10 que lo hace estar en la posicion indicada, asi la suma quedaria '8 * (10^2) + 7 * (10 ^ 1) + 6 * (10 ^ 0)', este es el principio que estamos haciendo dentro del for, lo unico es que es  '10 ^ (x - i - 1)' ese exponente viene del hecho que como la i va desde 0 hasta (x - 1), y necesitamos es multiplicar el por potencias de 10, pero decrecientes, entonces esto lo podemos solucionar por medio de '(x - i - 1)'.
 
-Multiplica cada elemento del vector res por la potencia de 10 correspondiente según su posición en el vector. Esto coloca los dígitos en su posición correcta en el número entero final y suma los resultados de estas multiplicaciones para construir el número final.
-
-Si el último flag es true, significa que el número debe ser negativo, por lo que se multiplica result por -1 para obtener el valor negativo.
+El ultimo if chequea que si el numero debe de ser negativo, entonces vamos a multiplicar el resultado de la suma por -1 para convertir el numero en negativo.
+Ya de ahi solo se retorna el numero.
 
 ### getPressedNumber2()
 ```
@@ -284,16 +280,9 @@ vector<int> getPressedNumber2()
     }
 }
 ```
-El método getPressedNumber2() se encarga de leer los números ingresados por el usuario desde un teclado numérico 4x4 y convertirlos en una secuencia de dígitos(vector de dígitos) que posteriormente se convertirán en un número entero. El número puede ser positivo o negativo, y el ingreso se detiene cuando el usuario presiona la tecla '*'. 
-
-El método usa una variable booleana flag para controlar si se permite ingresar un número negativo. Posteriormente inicia un bucle infinito que continuará hasta que el usuario presione la tecla * para finalizar la entrada del número. Este itera a través de las filas del teclado numérico y desactiva una fila a la vez para permitir la lectura de las teclas en esa fila, luego itera a través de las columnas del teclado numérico y verifica si una tecla está siendo presionada en esa fila y columna específicas.
-Si la tecla presionada es *, la función termina la entrada y devuelve el vector result hasta ese punto.
-
-Si la tecla presionada es '#', la función permite que el usuario indique un número negativo si es la primera tecla presionada y agrega -1 a "result". Luego, ignora los '-' adicionales.
-Si la tecla presionada es un dígito del 0 al 9, la función convierte el carácter en un entero y lo agrega a "result".
-
-El resultado final es un vector de enteros que representa el número ingresado por el usuario.
-
-
-
-
+El método 'getPressedNumber2()' se encarga de leer los números ingresados por el usuario desde un teclado numérico 4x4 y convertirlos en un vector dígitos, que posteriormente se convertirán en un número entero por medio de la funcion 'getPressedNumber()'. 
+El número puede ser positivo o negativo, esto se denota por medio de presionar la tecla '#' al inicio de meter el numero, y el ingreso se detiene cuando el usuario presiona la tecla '*'. 
+El metodo dentro de esos for lo que hace es identificar cual fue la tecla del teclado (valga la redundancia) la cual fue presionada, una vez se identifico esta tecla, lo que hacemos es chekear a cual de estos casos pertenece la tecla presionada:
+- Se presiono '*': En este caso sensillamente significa que ya se termino de digitar el numero y se desea continuar, por ende salimos del metodo retornando el numero creado hasta ahora.
+- Se presiono '#': Esto se usa para indicar que el numero es negativo, o si estuviera escrito en un papel, escribirle '-' al inicio al numero. Solo se registra este negativo cuando es lo primero que se ingresa al numero, de lo contrario ese negativo se asumira como que se presiono accidentalmente por ende ignorandolo.
+- Se presiono un numero: Cuando se presiona un numero normal, es decir, cualquier otra tecla (Ya que el teclado fisico solo tiene los numeros, el '*' y el '#') a las previas mensionadas, convertimos el caracter que nos devuelve la matriz 'keyMap' en un numero entero, y lo añadimos al vector para su eventual conversion.
