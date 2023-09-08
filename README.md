@@ -293,8 +293,8 @@ vector<int> getPressedNumber2()
 ```
 El método getPressedNumber2() se encarga de leer los números ingresados por el usuario desde un teclado numérico 4x4 y convertirlos en una secuencia de dígitos(vector de dígitos) que posteriormente se convertirán en un número entero. El número puede ser positivo o negativo, y el ingreso se detiene cuando el usuario presiona la tecla '*'. 
 
-El método usa una variable booleana flag para controlar si se permite ingresar un número negativo. Posteriormente inicia un bucle infinito que continuará hasta que el usuario presione la tecla '*' para finalizar la entrada del número. Este itera a través de las filas del teclado numérico y desactiva una fila a la vez para permitir la lectura de las teclas en esa fila, luego itera a través de las columnas del teclado numérico y verifica si una tecla está siendo presionada en esa fila y columna específicas.
-Si la tecla presionada es '*', la función termina la entrada y devuelve el vector result hasta ese punto.
+El método usa una variable booleana flag para controlar si se permite ingresar un número negativo. Posteriormente inicia un bucle infinito que continuará hasta que el usuario presione la tecla * para finalizar la entrada del número. Este itera a través de las filas del teclado numérico y desactiva una fila a la vez para permitir la lectura de las teclas en esa fila, luego itera a través de las columnas del teclado numérico y verifica si una tecla está siendo presionada en esa fila y columna específicas.
+Si la tecla presionada es *, la función termina la entrada y devuelve el vector result hasta ese punto.
 
 Si la tecla presionada es '#', la función permite que el usuario indique un número negativo si es la primera tecla presionada y agrega -1 a result. Luego, ignora los '-' adicionales.
 Si la tecla presionada es un dígito del 0 al 9, la función convierte el carácter en un entero y lo agrega a result.
