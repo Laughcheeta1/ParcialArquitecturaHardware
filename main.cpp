@@ -58,33 +58,33 @@ void app3()
     green.period(0.01);
     blue.period(0.01);
 
-    cout << "ingrese el numero de rojo (recuerde que tiene que inroducir entre 0 y 100, para que se refleje el porcentaje [0, 1]):\n";
+    cout << "ingrese el numero de rojo (recuerde que tiene que introducir un numero entre 0 y 255):\n";
     float number1 = (float)getPressedNumber();
-    while (number1 > 100 || number1 < 0)
+    while (number1 > 255 || number1 < 0)
     {
-        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 100\n";
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 255\n";
         number1 = getPressedNumber();
     }
 
-    cout << "ingrese el numero de verde (recuerde que tiene que inroducir entre 0 y 100, para que se refleje el porcentaje [0, 1]):\n";
+    cout << "ingrese el numero de verde (recuerde que tiene que introducir un numero entre 0 y 255):\n";
     float number2 = (float)getPressedNumber();
-    while (number2 > 100 || number2 < 0)
+    while (number2 > 255 || number2 < 0)
     {
-        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 100\n";
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del verde, desde 0 hasta 255\n";
         number2 = getPressedNumber();
     }
 
-    cout << "ingrese el numero de azul (recuerde que tiene que inroducir entre 0 y 100, para que se refleje el porcentaje [0, 1]):\n";
+    cout << "ingrese el numero de azul (recuerde que tiene que inroducir un numero entre 0 y 255):\n";
     float number3 = (float)getPressedNumber();
-    while (number3 > 100 || number3 < 0)
+    while (number3 > 255 || number3 < 0)
     {
-        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del rojo, desde 0 hasta 100\n";
+        cout << "ingreso un numero no valido, por favor vuevla a entrar el numero del azul, desde 0 hasta 255\n";
         number3 = getPressedNumber();
     }
 
-    red.write(number1 / 100);
-    green.write(number2 / 100);
-    blue.write(number3 / 100);
+    red.write(number1 / 255);
+    green.write(number2 / 255);
+    blue.write(number3 / 255);
 
     cout << "Listo! App 3 terminada\n";
 }
